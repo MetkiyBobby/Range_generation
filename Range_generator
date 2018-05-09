@@ -1,0 +1,52 @@
+#! python3
+# range_generator.py - Гененрирует диапазон ячеек для электронных таблиц
+# принимая у пользователя параметры диапазона (для ячеек с адресом из
+# одной или двух букв)
+
+import pyperclip
+
+# Создание списка значений буквенной части диапазона
+alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+alphabetList = list(alphabet)
+
+for i in alphabet:
+    for j in range(len(alphabet)):
+        alphabetList.append(i + alphabet[j])
+
+# Ввод пользователем значений диапазона
+
+print('Введите буквы с которых начинается диапазон')
+startOfRangeLetters = input()
+print('Введите буквы которыми кончается диапазон')
+endOfRangeLetters = input()
+print('Введите шаг буквенной части диапазона')
+stepOfRangeLetters = input()
+print('Введите число с которого начинается диапазон')
+startOfRangeDigits = input()
+print('Введите число которым кончается диапазон')
+endOfRangeDigits = input()
+print('Введите шаг численной части диапазона')
+stepOfRangeDigits = input()
+
+# Создание буквенной части пользовательского диапазона
+
+userList = []
+for i in range(alphabetList.index(startOfRangeLetters),
+                alphabetList.index(endOfRangeLetters),
+                int(stepOfRangeLetters)):
+    userList.append(alphabetList[i])
+
+# Создание окончательного диапазона и копрированеи его в буфер обмена
+finishList = '='
+for i in userList:
+    finishList += ('$' + i + '$' + startOfRangeDigits + ':$' + i +
+                   '$' + endOfRangeDigits + ';')
+
+print(finishList)
+pyperclip.copy(finishList)
+    
+    
+
+    
+
+
